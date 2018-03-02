@@ -10,68 +10,64 @@ var id = 0;
 
 function draw(e) {
     console.log("drawing circle");
-    if (id != 0) {
-	clearInterval(id);
-    }
+    stop(e);
+    svg.innerHTML = "";
     var r = 1;
     var augmenter = 1;
     var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", 250);
     circle.setAttribute("cy", 250);
     circle.setAttribute("fill", "black");
-    function circle() {
+    function drawCircle() {
 	svg.innerHTML = "";
 	circle.setAttribute("r", r.toString());
-	box.appendChild(circle);
+	svg.appendChild(circle);
 	if (r == 1)
 	    augmenter = 1;
 	if (r == 250)
 	    augmenter = -1;
 	r += augmenter;
     }
-    id = setInterval(circle, 100);
+    id = setInterval(drawCircle, 20);
 }
 
 growButton.addEventListener('click', draw);
 
-/*stopButton.addEventListener('click', stop);
-
 function stop(e) {
-    window.cancelAnimationFrame(requestID);
+    console.log("stop");
+    if (id != 0)
+	clearInterval(id);
 }
 
-bounceButton.addEventListener('click', bounce);
+stopButton.addEventListener('click', stop);
+
 
 function bounce(e) {
-    window.cancelAnimationFrame(requestID);
+    stop(e);
+    svg.innerHTML = "";
     var dx = 1;
     var dy = 2;
     var x = 250;
     var y = 250;
+    var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("fill", "black");
+    circle.setAttribute("r", "20")
     function move() {
-	clear();
-	ctx.beginPath();
-	ctx.arc(x, y, 5, 0, 2 * Math.PI);
-	ctx.fill();
-	if (x == 0 || x == 500) {
+	svg.innterHTML = "";
+	circle.setAttribute("cx", x.toString());
+	circle.setAttribute("cy", y.toString());
+	svg.appendChild(circle);
+	if (x == 0 + 20 || x == 500 -20) {
 	    dx *= -1;
 	}
-	if (y == 0 || y == 500) {
+	if (y == 0 + 20|| y == 500 - 20) {
 	    dy *= -1;
 	}
 	x += dx;
 	y += dy;
-	requestID = window.requestAnimationFrame(move);
     }
-    move();
-
-}
-	
-    
-function clear() {
-    ctx.clearRect(0, 0, 500, 500);
+    id = setInterval(move, 20);
 }
 
-
-    */
+bounceButton.addEventListener('click', bounce);
 
